@@ -24,11 +24,19 @@ self.addEventListener('activate', event => {
 
 //FETCH
 self.addEventListener('fetch', event => {
-    console.log('SW: ', event.request.url);
+    // console.log('SW:', event.request.url);
 
-    if (event.request.url.includes('https://reqres.in/')) {
-        const resp = new Response(`{ok: false, mensaje: 'xd'}`);
+    // if (event.request.url.includes('https://reqres.in/')) {
+    //     const resp = new Response(`{ok: false, mensaje: 'jajja'}`);
 
-        event.respondWith(resp);
-    }
+    //     event.respondWith(resp);
+    // }
+});
+
+//SYNC
+self.addEventListener('sync', event => {
+
+    console.log('Tenemos conexión');
+    console.log(event);
+    console.log(event, tag);
 });
