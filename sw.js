@@ -40,3 +40,9 @@ self.addEventListener('sync', event => {
     console.log(event);
     console.log(event, tag);
 });
+
+//PUSH
+
+self.addEventListener('push', event => {
+    console.log('push');
+});

@@ -2,11 +2,15 @@
 if (navigator.serviceWorker) {
     navigator.serviceWorker.register('/sw.js')
         .then(reg => {
-            setTimeout(() => {
-                reg.sync.register('posteo');
-                console.log('Se enviaron fotos');
-            }, 3000);
+            // setTimeout(() => {
+            //     reg.sync.register('posteo-gatitos');
+            //     console.log('se enviaron fotos');
+            // }, 3000);
+            Notification.requestPermission().then(result => {
+                console.log(result);
+                reg.showNotification('Hello world!');
 
+            });
         });
 }
 
