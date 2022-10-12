@@ -1,4 +1,4 @@
-const CACHE_STATIC_NAME = 'static-v1';
+const CACHE_STATIC_NAME = 'static-v2';
 const CACHE_DYNAMIC_NAME = 'dynamic-v1';
 const CACHE_INMUTABLE_NAME = 'inmutable-v1';
 const CACHE_DYNAMYX_LIMIT = 50;
@@ -46,6 +46,10 @@ self.addEventListener('fetch', e => {
                         limpiarCache(CACHE_DYNAMIC_NAME, CACHE_DYNAMYX_LIMIT);
                     });
                 return newResp.clone();
+            }).catch(error => {
+                if (e.request.headers.get('accept').includes('text/html')) {
+                    return caches.match('/pages/offline.html')
+                }
             });
         });
 
