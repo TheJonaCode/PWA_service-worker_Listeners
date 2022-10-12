@@ -2,6 +2,7 @@
 const CACHE_STATIC_NAME = 'static-v2';
 const CACHE_DYNAMIC_NAME = 'dynamic-v1';
 const CACHE_INMUTABLE_NAME = 'inmutable-v1';
+const CACHE_DINAMYC_LIMIT = 50;
 
 function limpiarCache(cacheName, numeroItems) {
     cache.open(cacheName)
@@ -36,7 +37,7 @@ self.addEventListener('fetch', e => {
     //e.respondWith(caches.match(e.request));
 
     //Cache with network fallback
-    const respuestaCache = caches.match(e.request)
+    /*const respuestaCache = caches.match(e.request)
         .then(resp => {
             if (resp) return resp;
             //No existe archivo
@@ -51,5 +52,20 @@ self.addEventListener('fetch', e => {
             });
         });
 
-    e.respondWith(respuestaCache);
+    e.respondWith(respuestaCache);*/
+
+    //Network with cache fallback
+    const respuesta = fetch(e.request).then(res => {
+        console.log('fetch', res);
+        caches.open(CACHE_DYNAMIC_NAME)
+            .then(cache => {
+                cache.put(e.request, res);
+                limpiarCache(CACHE_DYNAMIC_NAME, CACHE_DYNAMYC_LIMIT);
+            });
+        return res.clone();
+    }).catch(error => {
+        return caches.match(e.request);
+    });
+
+    e.respondWith(respuesta);
 });
