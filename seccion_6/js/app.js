@@ -1,7 +1,7 @@
 if (navigator.serviceWorker) {
     navigator.serviceWorker.register('/sw.js');
 };
-
+/*
 if (window.caches) {
     caches.open('prueba-1');
     caches.open('prueba-2');
@@ -18,13 +18,13 @@ if (window.caches) {
             cache.put('index.html', new Response('Hello World'));
         });
 
-        /*cache.match('/index.html')
+        cache.match('/index.html')
             .then(resp => {
                 resp.text().then(console.log);
-        });*/
+        });
 
         cache.keys().then(keys => {
             console.log(keys);
         });
     });
-};
+};*/
